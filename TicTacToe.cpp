@@ -70,9 +70,9 @@ using namespace std;
  */
 void displayBoard( const string& board)
 {
-    cout<<"            "<<board[1]<<" "<<board[2]<<" "<<board[3]<<'\n';
-    cout<<"            "<<board[4]<<" "<<board[5]<<" "<<board[6]<<'\n';
-    cout<<"            "<<board[7]<<" "<<board[8]<<" "<<board[9]<<'\n';
+    cout << "            " << board[1] << " " << board[2] << " " << board[3] << '\n';
+    cout << "            " << board[4] << " " << board[5] << " " << board[6] << '\n';
+    cout << "            " << board[7] << " " << board[8] << " " << board[9] << '\n';
     //cout<<"----------------------------------"<<endl;
 }
 
@@ -83,17 +83,17 @@ void displayBoard( const string& board)
  */
 void opponentPlay(string& board, char humanMark)
 {
-    cout<<"Make your move"<<'\n';
+    cout << "Make your move" << endl;
     int i;
-    cin>>i;
+    cin >> i;
     while(i<1 || i>9 || board[i]!='_')
     {
-        cout<<"Make a valid move"<<'\n';
-        cin>>i;
+        cout << "Make a valid move" << endl;
+        cin >> i;
     }
     board[i]= humanMark;
-    cout<<"----------------------------------"<<'\n';
-    cout<<"You played:"<<'\n';
+    cout << "----------------------------------" << '\n';
+    cout << "You played:" << '\n';
 }
 
 /*
@@ -461,29 +461,29 @@ int autoplay(string& board, char mark)
     move = win_in_one(board, mark);
     if(move)
     {
-        //cout<<p<<" wins"<<endl;
-        //cout<<"win in one"<<endl;
+        //cout << p << " wins" << endl;
+        //cout << "win in one" << endl;
         return move;
     }
     else if((move = defend_in_one(board, mark)))
     {
-        //cout<<"defend in one"<<endl;
+        //cout << "defend in one" << endl;
         return move;
     }
     else if((move = win_in_three(board, mark)))
     {
-        //cout<<"win in three"<<endl;
+        //cout << "win in three" << endl;
         return move;
     }
     else if((move = defend_in_three(board, mark)))
     {
-        //cout<<"defend in three"<<endl;
+        //cout << "defend in three" << endl;
         return move;
     }
     else
     {
         move = random(board, mark);
-        //cout<<"random"<<endl;
+        //cout << "random" << endl;
         return move;
     }
     return 0;
@@ -500,15 +500,18 @@ void humanVScomp()
     char userMark, compMark;
     int empty=9;
 
-    cout<<endl<<"X to play first"<<endl;
-    cout<<"Choose: X or O"<<endl;
+    cout << endl << "X to play first" << endl;
+    cout << "Choose: X or O" << endl;
     do
     {
-        cin>>userMark;
+        cin >> userMark;
     }
     while(userMark != 'X' && userMark!= 'O');
 
-    cout<<"Format:"<<endl<<"1"<<"|"<<"2"<<"|"<<"3"<<endl<<"4"<<"|"<<"5"<<"|"<<"6"<<endl<<"7"<<"|"<<"8"<<"|"<<"9"<<endl;
+    cout << "Format:" << endl;
+    cout << "1|2|3" << endl;
+    cout << "4|5|6" << endl;
+    cout << "7|8|9" << endl;
 
 
     if(userMark=='X')
@@ -538,28 +541,28 @@ void humanVScomp()
         displayBoard(board);
         if(win(board, userMark))
         {
-            cout<<userMark<<" wins"<<endl;
+            cout << userMark << " wins" << endl;
             return ;
         }
         empty--;
 
         if(empty == 0)
         {
-            cout<<"It's a Draw";
+            cout << "It's a Draw";
             return ;
         }
 
         autoplay(board, compMark);
-        cout<<"PC played:"<<endl;
+        cout << "PC played:" << endl;
         displayBoard(board);
         if(win(board, compMark))
         {
-            cout<<compMark<<" wins"<<endl;
+            cout << compMark << " wins" << endl;
             return ;
         }
         empty--;
     }
-    cout<<"It's a Draw";
+    cout << "It's a Draw";
 }
 
 /*
@@ -571,7 +574,7 @@ void displayGame(const string &board, const vector<int> &humanMoveSequence)
     cout << "Played Moves: ";
     for(size_t move=0; move < humanMoveSequence.size(); move++)
         cout << humanMoveSequence[move] << " ";
-    cout<<'\n';
+    cout << '\n';
 }
 
 /*
@@ -690,7 +693,7 @@ void genTests(char userMark)
         //If computer ever loses or results in an incomplete game, print the index of such a
         //test and print the result.
         //if(result!=1 && result!=0)
-            //cout<<testIndex<<' '<<result<<endl;
+            //cout << testIndex << ' ' << result << endl;
         if(result==10)
             continue;
         char compMark;
@@ -702,11 +705,11 @@ void genTests(char userMark)
         if(result == 1)
             cout << compMark << " Wins\n";
         else if(result == 0)
-            cout<<"It's a draw\n";
+            cout << "It's a draw\n";
         else if(result == -1)
-            cout<<userMark<<" Wins\n";
+            cout << userMark << " Wins\n";
 
-        cout<<"--------------------------------------"<<'\n';
+        cout << "--------------------------------------" << '\n';
         switch(result)
         {
             case 1: wins++; break;
@@ -716,10 +719,10 @@ void genTests(char userMark)
         }
     } while ( next_permutation(seq.begin(), seq.end()) );
 
-    cout<<"Wins \t\t : "<<wins<<'\n';
-    cout<<"Draws \t\t : "<<draws<<'\n';
-    cout<<"Loses \t\t : "<<loses<<'\n';
-    cout<<"Incomplete games : "<<incomplete<<'\n';
+    cout << "Wins \t\t : " << wins << '\n';
+    cout << "Draws \t\t : " << draws << '\n';
+    cout << "Loses \t\t : " << loses << '\n';
+    cout << "Incomplete games : " << incomplete << '\n';
 
 }
 
@@ -727,7 +730,7 @@ void genTests(char userMark)
 
 int main()
 {
-       cout << "TicTacToe game" << endl;
+    cout << "TicTacToe game" << endl;
     cout << "Enter 1 for playing against computer" << endl;
     cout << "Enter 2 for testing the soundness and completeness of computer moves, in all 9! possible games." << endl;
     cout << "Enter 3 for inputting individual, intermediate board positions from a text file and seeing the next configuration." << endl;
@@ -778,11 +781,11 @@ int main()
     vector<int> vec (arr, arr + sizeof(arr) / sizeof(arr[0]) );
     char m='X';
 
-    cout<<test(vec, m); */    //To test with a given move preference list of the user.
+    cout << test(vec, m); */    //To test with a given move preference list of the user.
 
     /*board = "_x____oxox";
     random(board, 'o');
     displayBoard(board);*/    //To unittest any given function.
-    //cout<< win("0oxxxxooox", 'o');
+    //cout << win("0oxxxxooox", 'o');
 return 0;
 }
