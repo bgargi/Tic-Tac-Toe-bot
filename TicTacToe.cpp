@@ -10,43 +10,43 @@ Tic-Tac-Toe
 
 2.Strategy
 
-	List of priorities:
-	1)Win: If the player has two in a row (here, row represents horizontal row or vertical
- 	column or diagonal), they can place a third (if empty) to get three in a row.
+    List of priorities:
+    1)Win: If the player has two in a row (here, row represents horizontal row or vertical
+     column or diagonal), they can place a third (if empty) to get three in a row.
 
-	2)Block: If the opponent has two in a row, the player must play the third themselves to
-	block the opponent's win.
+    2)Block: If the opponent has two in a row, the player must play the third themselves to
+    block the opponent's win.
 
-	3)Opportunity move: Create an opportunity where the player has two ways to win (two non-blocked lines of 2).
-	It is a move which creates an opportunity for the player to definitely win in the next move.
+    3)Opportunity move: Create an opportunity where the player has two ways to win (two non-blocked lines of 2).
+    It is a move which creates an opportunity for the player to definitely win in the next move.
 
-	4)Blocking an opponent's opportunity move (in priority order):
+    4)Blocking an opponent's opportunity move (in priority order):
 
-		Option 1: The player should create two in a row to force the opponent into
-			  defending, as long as it doesn't result in them creating an opportunity move. For example, if
-			  "X" has two opposite corners and "O" has the center, "O" must not play a
-			  corner in order to win. (Playing a corner in this scenario creates an opportunity move for "X"
- 			  to win.)
-		Option 2: If there is a configuration where the opponent can have an opportunity move, the player
- 			  should block that move.
+        Option 1: The player should create two in a row to force the opponent into
+              defending, as long as it doesn't result in them creating an opportunity move. For example, if
+              "X" has two opposite corners and "O" has the center, "O" must not play a
+              corner in order to win. (Playing a corner in this scenario creates an opportunity move for "X"
+               to win.)
+        Option 2: If there is a configuration where the opponent can have an opportunity move, the player
+               should block that move.
 
-	5)If none of the above moves exist, the following strategy should be used in the same priority order:
-		i)The player should play a move which can lead to an opportunity move if the opponent doesn't play the next
-	 	move optimally.
-		ii)The player should play a move which can lead to win in next move, given that the
- 		opponent doesn't play optimally.
-		iii)Otherwise any random move can be played.
+    5)If none of the above moves exist, the following strategy should be used in the same priority order:
+        i)The player should play a move which can lead to an opportunity move if the opponent doesn't play the next
+         move optimally.
+        ii)The player should play a move which can lead to win in next move, given that the
+         opponent doesn't play optimally.
+        iii)Otherwise any random move can be played.
 
 
 
-	To play optimally, O should adopt the following strategies:
-	i)	If X plays corner opening move (best move for them), O should take center in the next move. This
+    To play optimally, O should adopt the following strategies:
+    i)    If X plays corner opening move (best move for them), O should take center in the next move. This
         will ensure that X has no move to play that will give an opportunity move. Then follow the list of priorities.
-	ii)	If X plays edge opening move, O should take center, and then follow the given list of priorities.
-	iii)If X plays center opening move, O should take corner, and then follow the above list of priorities.
+    ii)    If X plays edge opening move, O should take center, and then follow the given list of priorities.
+    iii)If X plays center opening move, O should take corner, and then follow the above list of priorities.
 
-	To play optimally, X should adopt the following strategies:
-	i)	X should play the centre as the opening move and then follow the list of priorities.
+    To play optimally, X should adopt the following strategies:
+    i)    X should play the centre as the opening move and then follow the list of priorities.
 */
 
 
@@ -70,9 +70,9 @@ using namespace std;
  */
 void displayBoard( const string& board)
 {
-	cout<<"            "<<board[1]<<" "<<board[2]<<" "<<board[3]<<'\n';
-	cout<<"            "<<board[4]<<" "<<board[5]<<" "<<board[6]<<'\n';
-	cout<<"            "<<board[7]<<" "<<board[8]<<" "<<board[9]<<'\n';
+    cout<<"            "<<board[1]<<" "<<board[2]<<" "<<board[3]<<'\n';
+    cout<<"            "<<board[4]<<" "<<board[5]<<" "<<board[6]<<'\n';
+    cout<<"            "<<board[7]<<" "<<board[8]<<" "<<board[9]<<'\n';
     //cout<<"----------------------------------"<<endl;
 }
 
@@ -133,15 +133,15 @@ int win_in_one(string& board, char mark, int cell)
 {
     string boardcopy = board;
 
-	if(boardcopy[cell]=='_')
-	{
-		boardcopy[cell]= mark;
+    if(boardcopy[cell]=='_')
+    {
+        boardcopy[cell]= mark;
         if(win(boardcopy, mark) )
         {
-			board[cell]= mark;
+            board[cell]= mark;
             return cell;
-		}
-	}
+        }
+    }
     return 0;
 }
 
@@ -155,11 +155,11 @@ int win_in_one(string& board, char mark)
 {
     string boardcopy= board;
 
-	for(int i=1; i<10; i++)
+    for(int i=1; i<10; i++)
     {
         if(win_in_one(board, mark, i))
-		{	return i;
-		}
+        {   return i;
+        }
     }
     return 0;
 }
@@ -173,7 +173,7 @@ int win_in_one(string& board, char mark)
 int defend_in_one(string& board, char mark, int cell)
 {
     string boardcopy= board;
-	char other;
+    char other;
 
     if(mark == 'x')
         other= 'o';
@@ -182,13 +182,13 @@ int defend_in_one(string& board, char mark, int cell)
 
     if(boardcopy[cell]=='_')
     {
-		if(win_in_one(boardcopy, other, cell))
-        {	//If this move is left, human can win in 1.
+        if(win_in_one(boardcopy, other, cell))
+        {   //If this move is left, human can win in 1.
             //This is a move computer should never leave.
-          	board[cell]= boardcopy[cell]= mark;
+            board[cell]= boardcopy[cell]= mark;
             return cell;
-		}
-	}
+        }
+    }
     return 0;
 }
 
@@ -204,7 +204,7 @@ int defend_in_one(string& board, char mark)
     for(int i=1; i<10; i++)
     {
         if(defend_in_one(board, mark, i))
-			return i;
+            return i;
     }
     return 0;
 }
@@ -218,7 +218,7 @@ int defend_in_one(string& board, char mark)
 int win_in_three(string& board, char mark, int cell)
 {
     string boardcopy = board;
-	char other;
+    char other;
 
     if(mark == 'x')
         other = 'o';
@@ -226,28 +226,28 @@ int win_in_three(string& board, char mark, int cell)
         other = 'x';
 
     int blank=0, counterable_opp_moves=0;
-	if(boardcopy[cell]=='_')
-	{
-		boardcopy[cell]= mark;
-		string anothercopy = boardcopy;
-		for(int x=1; x<10; x++)
-		{
-			anothercopy= boardcopy;
-			if(anothercopy[x]=='_')
-			{
-				blank++;
-				anothercopy[x]= other;
-				counterable_opp_moves += (win_in_one(anothercopy, mark) != 0);
-			}
-		}
-		if(blank < 2)
-			return 0;
-		if(counterable_opp_moves == blank)
-		{
-			board[cell]= mark;
-			return cell;
-		}
-	}
+    if(boardcopy[cell]=='_')
+    {
+        boardcopy[cell]= mark;
+        string anothercopy = boardcopy;
+        for(int x=1; x<10; x++)
+        {
+            anothercopy= boardcopy;
+            if(anothercopy[x]=='_')
+            {
+                blank++;
+                anothercopy[x]= other;
+                counterable_opp_moves += (win_in_one(anothercopy, mark) != 0);
+            }
+        }
+        if(blank < 2)
+            return 0;
+        if(counterable_opp_moves == blank)
+        {
+            board[cell]= mark;
+            return cell;
+        }
+    }
     return 0;
 }
 
@@ -262,7 +262,7 @@ int win_in_three(string& board, char mark)
     for(int i=1; i<10; i++)
     {
         if(win_in_three(board, mark, i))
-			return i;
+            return i;
     }
     return 0;
 }
@@ -281,7 +281,7 @@ int defend_in_three(string& board, char mark)
 {
     int cnt=0;
     string boardcopy = board;
-	char other;
+    char other;
 
     if(mark=='x')
         other='o';
@@ -291,12 +291,12 @@ int defend_in_three(string& board, char mark)
     for(int i=1; i<10; i++)
     {
         boardcopy= board;
-		if(boardcopy[i]=='_')
+        if(boardcopy[i]=='_')
         {
             boardcopy[i]= mark;
             if(win_in_three(boardcopy, other))
             {
-				cnt++;
+                cnt++;
             }
         }
     }
@@ -319,7 +319,7 @@ int defend_in_three(string& board, char mark)
             defend_in_one(boardcopy, other);
 
             for(int j=1;j<10;j++)
-            {	string copy3 = boardcopy;
+            {    string copy3 = boardcopy;
                 if(copy3[j]=='_')
                 {
                     copy3[j]= mark;
@@ -336,25 +336,25 @@ int defend_in_three(string& board, char mark)
     }
 
 
-	for(int i=1; i<10; i++)
-	{
-		boardcopy= board;
-		if(boardcopy[i] == '_')
-		{
-			boardcopy[i]= mark;
-			if(win_in_three(boardcopy, other)==0)
-			{
-				cnt2++;
-				bestMove=i;
-				if(win_in_one(boardcopy, mark))
-				{
-					board[i]= mark;
-					return i;
-				}
-			}
-		}
-	}
-	return 0;
+    for(int i=1; i<10; i++)
+    {
+        boardcopy= board;
+        if(boardcopy[i] == '_')
+        {
+            boardcopy[i]= mark;
+            if(win_in_three(boardcopy, other)==0)
+            {
+                cnt2++;
+                bestMove=i;
+                if(win_in_one(boardcopy, mark))
+                {
+                    board[i]= mark;
+                    return i;
+                }
+            }
+        }
+    }
+    return 0;
 }
 
 /*
@@ -362,9 +362,9 @@ int defend_in_three(string& board, char mark)
  * */
 int random(string& board, char mark)
 {
-	int i, cnt=0, bestMove=0;
+    int i, cnt=0, bestMove=0;
     string boardcopy= board;
-	char other;
+    char other;
 
     if(mark == 'x')
         other='o';
@@ -388,11 +388,11 @@ int random(string& board, char mark)
     if(bestMove!=0)
     {
         board[bestMove]= mark;
-		return bestMove;
+        return bestMove;
     }
 
     boardcopy = board;
-	for(i=1; i<10; i++)
+    for(i=1; i<10; i++)
     {
         if(boardcopy[i]=='_')
         {
@@ -409,7 +409,7 @@ int random(string& board, char mark)
     if(bestMove != 0)
     {
         board[bestMove]= mark;
-		return bestMove;
+        return bestMove;
     }
     else
     {
@@ -417,11 +417,11 @@ int random(string& board, char mark)
         {
             if(board[i] == '_')
             {   board[i] = mark;
-				return i;
-			}
+                return i;
+            }
         }
     }
-	return 0;
+    return 0;
 }
 
 /*
@@ -437,56 +437,56 @@ int random(string& board, char mark)
  * */
 int autoplay(string& board, char mark)
 {
-	int empty= 0;
-	for(int i=1; i<=9; i++)
-	{
-		if(board[i]=='_')
-			empty++;
-	}
-	
-	if(empty>=8 && board[5]!='_' && board[1]=='_')
-	{
-		board[1]= mark;
-		return 1;
-	}
-	else if(empty>=8 && board[5]=='_')
-	{
-		board[5]= mark;
-		return 5;
-	}
-	
-	empty--;
-	
-	int move=0;
-	move = win_in_one(board, mark);
-	if(move)
-	{
-		//cout<<p<<" wins"<<endl;
-		//cout<<"win in one"<<endl;
-		return move;
-	}
-	else if((move = defend_in_one(board, mark)))
-	{
-		//cout<<"defend in one"<<endl;
-		return move;
-	}
-	else if((move = win_in_three(board, mark)))
-	{
-		//cout<<"win in three"<<endl;
-		return move;
-	}
-	else if((move = defend_in_three(board, mark)))
-	{
-		//cout<<"defend in three"<<endl;
-		return move;
-	}
-	else
-	{
-		move = random(board, mark);
-		//cout<<"random"<<endl;
-		return move;
-	}
-	return 0;
+    int empty= 0;
+    for(int i=1; i<=9; i++)
+    {
+        if(board[i]=='_')
+            empty++;
+    }
+
+    if(empty>=8 && board[5]!='_' && board[1]=='_')
+    {
+        board[1]= mark;
+        return 1;
+    }
+    else if(empty>=8 && board[5]=='_')
+    {
+        board[5]= mark;
+        return 5;
+    }
+
+    empty--;
+
+    int move=0;
+    move = win_in_one(board, mark);
+    if(move)
+    {
+        //cout<<p<<" wins"<<endl;
+        //cout<<"win in one"<<endl;
+        return move;
+    }
+    else if((move = defend_in_one(board, mark)))
+    {
+        //cout<<"defend in one"<<endl;
+        return move;
+    }
+    else if((move = win_in_three(board, mark)))
+    {
+        //cout<<"win in three"<<endl;
+        return move;
+    }
+    else if((move = defend_in_three(board, mark)))
+    {
+        //cout<<"defend in three"<<endl;
+        return move;
+    }
+    else
+    {
+        move = random(board, mark);
+        //cout<<"random"<<endl;
+        return move;
+    }
+    return 0;
 }
 
 /*
@@ -496,70 +496,70 @@ int autoplay(string& board, char mark)
  * */
 void humanVScomp()
 {
-	string board(10, '_');
-	char userMark, compMark;
-	int empty=9;
+    string board(10, '_');
+    char userMark, compMark;
+    int empty=9;
 
     cout<<endl<<"X to play first"<<endl;
     cout<<"Choose: X or O"<<endl;
     do
-	{
-		cin>>userMark;
-	}
-	while(userMark != 'X' && userMark!= 'O');
+    {
+        cin>>userMark;
+    }
+    while(userMark != 'X' && userMark!= 'O');
 
     cout<<"Format:"<<endl<<"1"<<"|"<<"2"<<"|"<<"3"<<endl<<"4"<<"|"<<"5"<<"|"<<"6"<<endl<<"7"<<"|"<<"8"<<"|"<<"9"<<endl;
 
 
     if(userMark=='X')
     {
-		compMark = 'o';
-		userMark = 'x';
-		opponentPlay(board, userMark);
-		displayBoard(board);
-		empty--;
-		autoplay(board, compMark);
-		cout << "PC Played:\n";
-		displayBoard(board);
-		empty--;
-	}
-	else
-	{	compMark='x';
-		userMark = 'o';
-		autoplay(board, compMark);
-		cout << "PC Played:\n";
-		displayBoard(board);
-		empty--;
-	}
+        compMark = 'o';
+        userMark = 'x';
+        opponentPlay(board, userMark);
+        displayBoard(board);
+        empty--;
+        autoplay(board, compMark);
+        cout << "PC Played:\n";
+        displayBoard(board);
+        empty--;
+    }
+    else
+    {    compMark='x';
+        userMark = 'o';
+        autoplay(board, compMark);
+        cout << "PC Played:\n";
+        displayBoard(board);
+        empty--;
+    }
 
-	while(empty>0)
-	{
-		opponentPlay(board, userMark);
-		displayBoard(board);
-		if(win(board, userMark))
-		{
-			cout<<userMark<<" wins"<<endl;
-			return ;
-		}
-		empty--;
-		
-		if(empty == 0)
-		{
-			cout<<"It's a Draw";
-			return ;
-		}
-		
-		autoplay(board, compMark);
-		cout<<"PC played:"<<endl;
-		displayBoard(board);
-		if(win(board, compMark))
-		{
-			cout<<compMark<<" wins"<<endl;
-			return ;
-		}
-		empty--;		
-	}
-	cout<<"It's a Draw";
+    while(empty>0)
+    {
+        opponentPlay(board, userMark);
+        displayBoard(board);
+        if(win(board, userMark))
+        {
+            cout<<userMark<<" wins"<<endl;
+            return ;
+        }
+        empty--;
+
+        if(empty == 0)
+        {
+            cout<<"It's a Draw";
+            return ;
+        }
+
+        autoplay(board, compMark);
+        cout<<"PC played:"<<endl;
+        displayBoard(board);
+        if(win(board, compMark))
+        {
+            cout<<compMark<<" wins"<<endl;
+            return ;
+        }
+        empty--;
+    }
+    cout<<"It's a Draw";
 }
 
 /*
@@ -567,11 +567,11 @@ void humanVScomp()
  * */
 void displayGame(const string &board, const vector<int> &humanMoveSequence)
 {
-	displayBoard(board);
-	cout << "Played Moves: ";
-	for(size_t move=0; move < humanMoveSequence.size(); move++)
-		cout << humanMoveSequence[move] << " ";
-	cout<<'\n';
+    displayBoard(board);
+    cout << "Played Moves: ";
+    for(size_t move=0; move < humanMoveSequence.size(); move++)
+        cout << humanMoveSequence[move] << " ";
+    cout<<'\n';
 }
 
 /*
@@ -592,77 +592,77 @@ void displayGame(const string &board, const vector<int> &humanMoveSequence)
  * */
 int test(vector<int> &seq, char userMark, set<vector<int> > &completedSeq)
 {
-	string board(10, '_');
-	char compMark;
-	int empty=9;
-	vector<int> humanMoveSequence;
+    string board(10, '_');
+    char compMark;
+    int empty=9;
+    vector<int> humanMoveSequence;
 
-	size_t k=0;
+    size_t k=0;
 
-	if(userMark=='X')
-	{
-		compMark = 'o';
-		userMark = 'x';
-		//opponentPlay(board, userMark);
-		while(seq[k]<1 || seq[k]>9 || board[seq[k]]!='_')
-			k++;
+    if(userMark=='X')
+    {
+        compMark = 'o';
+        userMark = 'x';
+        //opponentPlay(board, userMark);
+        while(seq[k]<1 || seq[k]>9 || board[seq[k]]!='_')
+            k++;
 
         humanMoveSequence.push_back(seq[k]);
-		board[seq[k++]]=userMark;
-		empty--;
+        board[seq[k++]]=userMark;
+        empty--;
 
-		autoplay(board, compMark);
-		empty--;
-	}
-	else
-	{
-		compMark = 'x';
-		userMark = 'o';
-		autoplay(board, compMark);
-		empty--;
-	}
-	while(empty>0)
-	{
-		while(seq[k]<1 || seq[k]>9 || board[seq[k]]!='_')
-		{
+        autoplay(board, compMark);
+        empty--;
+    }
+    else
+    {
+        compMark = 'x';
+        userMark = 'o';
+        autoplay(board, compMark);
+        empty--;
+    }
+    while(empty>0)
+    {
+        while(seq[k]<1 || seq[k]>9 || board[seq[k]]!='_')
+        {
             k++;
-			if(k>=seq.size() && empty>0)
-				return 2;
-		}
-		humanMoveSequence.push_back(seq[k]);
+            if(k>=seq.size() && empty>0)
+                return 2;
+        }
+        humanMoveSequence.push_back(seq[k]);
         board[seq[k++]] = userMark;
         empty--;
 
         if(empty!=0)
         {
-			int compMove = autoplay(board, compMark);
-			if(compMove == 0 && empty>0)
-				return 2;
-			empty--;
-		}
+            int compMove = autoplay(board, compMark);
+            if(compMove == 0 && empty>0)
+                return 2;
+            empty--;
+        }
 
-		if(win(board,userMark) || win(board,compMark) || empty==0)
-		{
-			if(completedSeq.find(humanMoveSequence) == completedSeq.end())
-			{
-				completedSeq.insert(humanMoveSequence);	//This is a new move sequence.
+        if(win(board,userMark) || win(board,compMark) || empty==0)
+        {
+            if(completedSeq.find(humanMoveSequence) == completedSeq.end())
+            {
+                completedSeq.insert(humanMoveSequence);    //This is a new move sequence.
 
-				displayGame(board,humanMoveSequence);
+                displayGame(board,humanMoveSequence);
 
-				if(win(board, userMark))
-					return -1;
+                if(win(board, userMark))
+                    return -1;
 
-				else if(win(board, compMark))
-					return 1;
+                else if(win(board, compMark))
+                    return 1;
 
-				else
-					return 0;
-			}
-			else
-				return 10;
-		}
-	}
-	return 0;
+                else
+                    return 0;
+            }
+            else
+                return 10;
+        }
+    }
+    return 0;
 }//end of test
 
 /*
@@ -674,23 +674,23 @@ int test(vector<int> &seq, char userMark, set<vector<int> > &completedSeq)
  * */
 void genTests(char userMark)
 {
-	static const int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-	vector<int> seq (arr, arr + sizeof(arr) / sizeof(arr[0]) );
-	int testIndex = 0, wins = 0, loses = 0, draws = 0, incomplete = 0;
+    static const int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    vector<int> seq (arr, arr + sizeof(arr) / sizeof(arr[0]) );
+    int testIndex = 0, wins = 0, loses = 0, draws = 0, incomplete = 0;
 
-	set<vector<int> > completedSeq;
+    set<vector<int> > completedSeq;
 
-	do {
-		testIndex++;
-		int result = test(seq, userMark, completedSeq);
-		//result = 1  : computer won.
-		//result = 0  : game resulted in draw.
-		//result = -1 : human won.
-		//result = 2  : game incomplete. This means computer doesn't know what to do.
-		//If computer ever loses or results in an incomplete game, print the index of such a
-		//test and print the result.
-		//if(result!=1 && result!=0)
-			//cout<<testIndex<<' '<<result<<endl;
+    do {
+        testIndex++;
+        int result = test(seq, userMark, completedSeq);
+        //result = 1  : computer won.
+        //result = 0  : game resulted in draw.
+        //result = -1 : human won.
+        //result = 2  : game incomplete. This means computer doesn't know what to do.
+        //If computer ever loses or results in an incomplete game, print the index of such a
+        //test and print the result.
+        //if(result!=1 && result!=0)
+            //cout<<testIndex<<' '<<result<<endl;
         if(result==10)
             continue;
         char compMark;
@@ -703,23 +703,23 @@ void genTests(char userMark)
             cout << compMark << " Wins\n";
         else if(result == 0)
             cout<<"It's a draw\n";
-		else if(result == -1)
-		    cout<<userMark<<" Wins\n";
+        else if(result == -1)
+            cout<<userMark<<" Wins\n";
 
         cout<<"--------------------------------------"<<'\n';
-		switch(result)
-		{
-			case 1: wins++; break;
-			case 0: draws++; break;
-			case -1: loses++; break;
-			case 2: incomplete++; break;
-		}
-	} while ( next_permutation(seq.begin(), seq.end()) );
+        switch(result)
+        {
+            case 1: wins++; break;
+            case 0: draws++; break;
+            case -1: loses++; break;
+            case 2: incomplete++; break;
+        }
+    } while ( next_permutation(seq.begin(), seq.end()) );
 
-	cout<<"Wins \t\t : "<<wins<<'\n';
-	cout<<"Draws \t\t : "<<draws<<'\n';
-	cout<<"Loses \t\t : "<<loses<<'\n';
-	cout<<"Incomplete games : "<<incomplete<<'\n';
+    cout<<"Wins \t\t : "<<wins<<'\n';
+    cout<<"Draws \t\t : "<<draws<<'\n';
+    cout<<"Loses \t\t : "<<loses<<'\n';
+    cout<<"Incomplete games : "<<incomplete<<'\n';
 
 }
 
@@ -727,10 +727,10 @@ void genTests(char userMark)
 
 int main()
 {
-   	cout << "TicTacToe game" << endl;
+       cout << "TicTacToe game" << endl;
     cout << "Enter 1 for playing against computer" << endl;
     cout << "Enter 2 for testing the soundness and completeness of computer moves, in all 9! possible games." << endl;
-	cout << "Enter 3 for inputting individual, intermediate board positions from a text file and seeing the next configuration." << endl;
+    cout << "Enter 3 for inputting individual, intermediate board positions from a text file and seeing the next configuration." << endl;
     int choice;
     cin >> choice;
     while(choice!=1 && choice!=2 && choice!=3)
@@ -740,49 +740,49 @@ int main()
 
     if(choice == 1)
     {
-        humanVScomp();		//To play against computer.
+        humanVScomp();        //To play against computer.
     }
     else if (choice == 2)
     {   cin.tie(NULL);
         ios_base::sync_with_stdio(false);
         cout << "When human has mark X. i.e. It is the first player" << endl;
-		genTests('X');
+        genTests('X');
 
-	    cout << endl << "When human has mark O. i.e. It is the second player" << endl;
-		genTests('O');
+        cout << endl << "When human has mark O. i.e. It is the second player" << endl;
+        genTests('O');
     }
-	else
-	{
-		while(1)
-		{
-			string board;
-			if (! (cin>>board))
-				break;
-			for(int i=0; i<9; i++)
-			{
-				if(board[i]=='c')
-					board[i]='_';
-			}
-			board = '0'+board;
-			autoplay(board, 'x');
-			for(int i=1; i<=9; i++)
-			{
-				if(board[i]=='_')
-					board[i]='c';
-				cout << board[i];
-			}
-			cout << '\n';
-		}
-	}
-	/*static const int arr[] = {3,1,2,4,5,6,7,8,9};
-	vector<int> vec (arr, arr + sizeof(arr) / sizeof(arr[0]) );
-	char m='X';
+    else
+    {
+        while(1)
+        {
+            string board;
+            if (! (cin>>board))
+                break;
+            for(int i=0; i<9; i++)
+            {
+                if(board[i]=='c')
+                    board[i]='_';
+            }
+            board = '0'+board;
+            autoplay(board, 'x');
+            for(int i=1; i<=9; i++)
+            {
+                if(board[i]=='_')
+                    board[i]='c';
+                cout << board[i];
+            }
+            cout << '\n';
+        }
+    }
+    /*static const int arr[] = {3,1,2,4,5,6,7,8,9};
+    vector<int> vec (arr, arr + sizeof(arr) / sizeof(arr[0]) );
+    char m='X';
 
-	cout<<test(vec, m); */	//To test with a given move preference list of the user.
+    cout<<test(vec, m); */    //To test with a given move preference list of the user.
 
-	/*board = "_x____oxox";
-	random(board, 'o');
-	displayBoard(board);*/	//To unittest any given function.
+    /*board = "_x____oxox";
+    random(board, 'o');
+    displayBoard(board);*/    //To unittest any given function.
     //cout<< win("0oxxxxooox", 'o');
 return 0;
 }
