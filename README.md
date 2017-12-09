@@ -4,6 +4,7 @@ Tic-tac-toe playing bot made for course assignment
 It is just a logical bot, with 100% accuracy.
 
 Made by : Ravishankar Joshi, Kevin Boban and Gargi Balasubramaniam
+
 Tic-Tac-Toe
 
 1.Introduction:
